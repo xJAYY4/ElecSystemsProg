@@ -1,3 +1,7 @@
+// Design a software to produce a knight rider effect on an array of 8 lights connected to Port B.
+// The program will read in a number which will determine the speed that the lit LED will move.
+// The program repeats for two cycles before asking for a new speed.
+
 #include <stdio.h>
 
 #define DELAY_OUTER 150000  // Define OUTER Loop delay constant
