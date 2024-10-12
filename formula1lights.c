@@ -1,3 +1,9 @@
+// Design a software to operate the starting lights of a Formula 1 race.
+// When the user presses 'S' or 's', the five red lights will appear in sequence at one-second intervals.
+// The lights correspond to the five lower bits of the variable.
+// Setting the bit turns on the light. (e.g. 00000011, simulates the first two lights being on).
+// The red lights are extinguished to signal the start of the race.
+
 #include <stdio.h>
 
 #define DELAY_OUTER 150000  // Define OUTER Loop delay constant
