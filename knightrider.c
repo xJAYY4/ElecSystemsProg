@@ -4,7 +4,7 @@
 
 #include <stdio.h>
 
-#define DELAY_OUTER 150000  // Define OUTER Loop delay constant
+#define DELAY_OUTER 150000   // Define OUTER Loop delay constant
 #define DELAY_INNER 2000     // Define INNER Loop delay constant
 
 // Function Declarations
