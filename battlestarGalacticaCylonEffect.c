@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#define DELAY_OUTER 150000  // Define OUTER Loop delay constant
-#define DELAY_INNER 2000     // Define INNER Loop delay constant
+#define DELAY_OUTER 150000      // Define OUTER Loop delay constant
+#define DELAY_INNER 2000        // Define INNER Loop delay constant
 
 // Function Declarations
 void display_binary(unsigned char portB);   // Display the current state of Port B in binary
@@ -25,14 +25,14 @@ int main() {
     while (1) {
         int i;
         // Move light from left to right (bit 0 to bit 7)
-        for (i = 0; i < 8; i++) {  // Loop through bits 0 to 7
+        for (i = 0; i < 8; i++) {      // Loop through bits 0 to 7
             portB = (1 << i);          // Shift 1 to the current bit position
             display_binary(portB);     // Display the current state of Port B
             delay(speed);              // Delay for the user-defined speed
         }
 
         // Move light from right to left (bit 7 to bit 0)
-        for (i = 6; i >= 0; i--) {  // Loop through bits 6 to 0
+        for (i = 6; i >= 0; i--) {      // Loop through bits 6 to 0
             portB = (1 << i);           // Shift 1 to the current bit position
             display_binary(portB);      // Display the current state of Port B
             delay(speed);               // Delay for the user-defined speed
