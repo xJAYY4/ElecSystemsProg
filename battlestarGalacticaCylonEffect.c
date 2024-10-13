@@ -1,3 +1,7 @@
+// Design a C software to produce a Battlestar Galactica Cylon type effect on an array of 8 lights connected to Port B.
+// The start of the program prompts the user for an input speed.
+// Simulate a variable called PortB that moves the binary on the screen in accordance with the inputted speed.
+
 #include <stdio.h>
 
 #define DELAY_OUTER 150000      // Define OUTER Loop delay constant
