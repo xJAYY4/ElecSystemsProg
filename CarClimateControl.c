@@ -120,7 +120,6 @@ int readInteger(const char *prompt) {
         if (scanf("%d", &value) == 1) {
             // Successfully read an integer, now check for additional characters
             char c;
-            
             // Clear any remaining characters in the input buffer
             if (scanf("%c", &c) == 1 && c != '\n') {
                 // If there are more characters after the integer
