@@ -11,9 +11,9 @@
 #define DELAY_INNER 13000       // INNER Loop delay constant
 
 // Bit definitions for Port B
-#define PORT_B_BIT_4 0x10       // Bit 4 for Heater
-#define PORT_B_BIT_5 0x20       // Bit 5 for Fan
-#define PORT_B_BIT_7 0x80       // Bit 7 for Sensor
+#define PORT_B_BIT_4 0x10       // Bit 4 for Heater (0b00010000)
+#define PORT_B_BIT_5 0x20       // Bit 5 for Fan (0b00100000)
+#define PORT_B_BIT_7 0x80       // Bit 7 for Sensor (0b10000000)
 
 #define HEATER_THRESHOLD 10      // Threshold for low temperature
 
