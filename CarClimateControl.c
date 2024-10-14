@@ -2,6 +2,7 @@
 // When the program starts, read in the threshold temperature which will be considered too hot.
 // If the temperature is too hot (bigger than the first number read in), activate the fan connected to Port B Bit 5.
 // If the temperature is too low, a sensor connected to Port B Bit 7 produces a high input, which intern results in the heater being activated (Port B Bit 5). 
+// Check for potential errors, i.e; If the thresholdTemperature is less than HEATER_THRESHOLD, and if the user enters any letters.
 
 #include <stdio.h>
 #include <stdlib.h>
