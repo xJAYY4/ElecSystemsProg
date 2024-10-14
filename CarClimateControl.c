@@ -6,31 +6,40 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Delay constants
 #define DELAY_OUTER 1000000     // OUTER Loop delay constant
 #define DELAY_INNER 13000       // INNER Loop delay constant
-#define PORT_B_BIT_4 0x10       // Bit 4 for Heater (0b00010000)
-#define PORT_B_BIT_5 0x20       // Bit 5 for Fan (0b00100000)
-#define PORT_B_BIT_7 0x80       // Bit 7 for Sensor (0b10000000)
-#define HEATER_THRESHOLD 10     // Threshold for low temperature
+
+// Bit definitions for Port B
+#define PORT_B_BIT_4 0x10       // Bit 4 for Heater
+#define PORT_B_BIT_5 0x20       // Bit 5 for Fan
+#define PORT_B_BIT_7 0x80       // Bit 7 for Sensor
+
+#define HEATER_THRESHOLD 10      // Threshold for low temperature
 
 // Function Declarations
-void printPortBBinary(int portB);                                               // Print Port B's binary state
+int readInteger(const char *prompt);                                            // Read an integer from user input with error checking
 void activateFan(int *portB, int currentTemperature, int thresholdTemperature); // Activate/Deactivate fan based on temperature
 void activateHeater(int *portB, int sensorStatus);                              // Activate/Deactivate heater based on temperature
+void printPortBBinary(int portB);                                               // Print Port B's binary state
 void delay();                                                                   // Delay to simulate heating or cooling
 
+
 int main() {
-    int currentTemperature, thresholdTemperature; // Variable to hold the current temperature and threshold Temperature
-    int portB = 0;                                // Simulated Port B
+    int currentTemperature, thresholdTemperature;   // Variable to hold the current temperature and threshold Temperature
+    int portB = 0;                                  // Simulated Port B
 
     // Read the threshold temperature from user input
-    printf("Enter the threshold temperature (C): ");
-    scanf("%d", &thresholdTemperature);
+    do {
+        thresholdTemperature = readInteger("Enter the threshold temperature (C): ");
+        if (thresholdTemperature <= HEATER_THRESHOLD) {    // Check if thresholdTemperature is less than HEATER_THRESHOLD 
+            printf("Threshold temperature cannot be lower than the heater threshold (%d C).\n", HEATER_THRESHOLD);
+        }
+    } while (thresholdTemperature <= HEATER_THRESHOLD);
 
     while (1) {
-        // Reads the current temperature from user input
-        printf("\nEnter the current temperature (C): ");
-        scanf("%d", &currentTemperature);
+        // Read the current temperature from user input
+        currentTemperature = readInteger("\nEnter the current temperature (C): ");
 
         // Activate or deactivate the fan based on the temperature
         activateFan(&portB, currentTemperature, thresholdTemperature);
@@ -51,9 +60,9 @@ int main() {
         // Wait to simulate heating or cooling
         delay();
     }
-
     return 0;
 }
+
 
 // Function to display the current state of Port B in binary
 void printPortBBinary(int portB) {
@@ -64,6 +73,7 @@ void printPortBBinary(int portB) {
     }
     printf(" (0x%02X)\n", portB);           // Display in hexadecimal format as well
 }
+
 
 // Function to activate/deactivate the fan based on temperature
 void activateFan(int *portB, int currentTemperature, int thresholdTemperature) {
@@ -89,10 +99,39 @@ void activateHeater(int *portB, int sensorStatus) {
     }
 }
 
+
 // Delay function using nested loops
 void delay() {
     int i, j;                               // Loop variables for outer and inner loops
     for (i = 0; i < DELAY_OUTER; i++) {
         for (j = 0; j < DELAY_INNER; j++);  // Inner loop for additional delay (no operation)
+    }
+}
+
+
+// Function to read an integer from user input with error checking
+int readInteger(const char *prompt) {
+    int value;
+    while (1) {
+        printf("%s", prompt); // Prompt the user for input
+
+        // Attempt to read an integer directly
+        if (scanf("%d", &value) == 1) {
+            // Successfully read an integer, now check for additional characters
+            char c;
+            
+            // Clear any remaining characters in the input buffer
+            if (scanf("%c", &c) == 1 && c != '\n') {
+                // If there are more characters after the integer
+                printf("Invalid input. Please enter a valid integer.\n");
+                while (getchar() != '\n'); // Discard the rest of the line
+            } else {
+                return value; // Return the valid integer if no extra characters
+            }
+        } else {
+            printf("Invalid input. Please enter a valid integer.\n"); // Error message
+            // Clear invalid input
+            while (getchar() != '\n'); // Discard the rest of the line
+        }
     }
 }
