@@ -92,7 +92,6 @@ void activateFan(int *portB, int currentTemperature, int thresholdTemperature) {
 void activateHeater(int *portB, int sensorStatus) {
     if (sensorStatus) {
         *portB |= PORT_B_BIT_4;     // Set bit 4 high (activate heater)
-        *portB |= PORT_B_BIT_7;     // Set bit 7 high (indicating sensor is active)
         printf("Heater activated\n");
     } else {
         *portB &= ~PORT_B_BIT_4;    // Set bit 4 low (deactivate heater)
@@ -118,7 +117,7 @@ int readInteger(const char *prompt) {
 
         // Attempt to read an integer directly
         if (scanf("%d", &value) == 1) {
-            // Successfully read an integer, now check for additional characters
+            // Successfully read an integer, checks for additional characters
             char c;
             // Clear any remaining characters in the input buffer
             if (scanf("%c", &c) == 1 && c != '\n') {
